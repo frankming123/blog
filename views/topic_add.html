@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    {{template "head"}}
+    <title>添加文章,我的beego博客</title>
+</head>
+
+<body>
+    {{template "navbar" .}}
+    <div class="container">
+        <h1>添加文章</h1>
+        <form method="POST" action="/topic">
+        <div class="form-group">
+            <label>文章标题:</label>
+            <input type="text" name="title" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>文章分类:</label>
+            {{range .Categories}}
+            <input type="radio" name="category" value="{{.Title}}">{{.Title}}
+            {{end}}
+        </div>
+        <div class="form-group">
+            <label>文章内容:</label>
+            <textarea name="content" cols="30" rows="10" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-default">添加文章</button>
+        </form>
+    </div>
+    {{template "tail"}}
+</body>
+
+</html>

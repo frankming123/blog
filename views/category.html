@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    {{template "head"}}
+    <title>分类,我的beego博客</title>
+</head>
+
+<body>
+    {{template "navbar" .}}
+    <div class="container">
+        <h1>分类列表</h1>
+        {{if .IsLogin}}
+        <form method="GET" action="/category">
+            <div class="form-group">
+                <label>分类名称</label>
+                <input id="name" class="form-control" placeholder="Enter category" name="name">
+            </div>
+            <input type="hidden" name="op" value="add">
+            <button id="commit" type="submit" class="btn btn-default">添加</button>
+        </form>
+        {{end}}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>名称</th>
+                    <th>文章数</th>
+                    {{if $.IsLogin}}
+                    <th>操作</th>
+                    {{end}}
+                </tr>
+            </thead>
+            {{range .Categories}}
+            <tbody>
+                <th>{{.Id}}</th>
+                <th>{{.Title}}</th>
+                <th>{{.TopicCount}}</th>
+                {{if $.IsLogin}}
+                <th>
+                    <form method="GET" action="/category?op=del&id={{.Id}}">
+                        <button type="button" class="btn btn-default">删除</button>
+                    </form>
+                </th>
+                {{end}}
+            </tbody>
+            {{end}}
+        </table>
+    </div>
+    {{template "tail"}}
+    <script src="/static/js/category.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    {{template "head"}}
+    <title>文章,我的beego博客</title>
+</head>
+
+<body>
+    {{template "navbar" .}}
+    <div class="container">
+        <h1>文章列表</h1>
+        {{if $.IsLogin}}
+        <a href="/topic/add" class="btn btn-default">添加文章</a>
+        {{end}}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>文章名称</th>
+                    <th>发表时间</th>
+                    <th>最后更新</th>
+                    <th>浏览</th>
+                    {{if $.IsLogin}}
+                    <th>操作</th>
+                    {{end}}
+                </tr>
+            </thead>
+            <tbody>
+                {{range .Topics}}
+                <tr>
+                    <th>{{.Id}}</th>
+                    <th>
+                        <a href="/topic/view/{{.Id}}">{{.Title}}</a>
+                    </th>
+                    <th>{{.CreateFormat}}</th>
+                    {{if .UpdateFormat}}
+                    <th>{{.UpdateFormat}}</th>
+                    {{else}}
+                    <th>{{.CreateFormat}}</th>
+                    {{end}}
+                    <th>{{.Views}}</th>
+                    {{if $.IsLogin}}
+                    <th>
+                        <a href="/topic/modify?tid={{.Id}}">修改 </a>
+                        <a href="/topic/delete?tid={{.Id}}">删除</a>
+                    </th>
+                    {{end}}
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </div>
+    {{template "tail"}}
+</body>
+
+</html>

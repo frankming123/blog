@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  {{template "head"}}
+  <title>首页,我的beego博客</title>
+</head>
+
+<body>
+  {{template "navbar" .}}
+  <div class="container">
+    <div class="col-md-2">
+<h3>文章分类</h3>
+<ul>
+  {{range .Categories}}
+  <li><a href="/?cate={{.Title}}">{{.Title}}</a></li>
+  {{end}}
+  <li><a href="/">全部</a></li>
+</ul>
+    </div>
+    <div class="col-md-10">
+      {{range .Topics}}
+      <div class="page-header">
+        <h1>
+          <a href="/topic/view/{{.Id}}">{{.Title}}</a>
+        </h1>
+        <h6 class="text-muted">文章发表于{{.CreateFormat}},{{if .UpdateFormat}}更新于{{.UpdateFormat}},{{end}}共有{{.Views}}次浏览</h6>
+        <p>
+          {{.Content}}
+        </p>
+      </div>
+      {{end}}
+    </div>
+  </div>
+  {{template "tail"}}
+</body>
+
+</html>
